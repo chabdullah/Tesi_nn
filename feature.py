@@ -2,31 +2,29 @@ import time
 from torch import optim
 from torch.utils.data import DataLoader
 from torchvision.datasets import ImageFolder
-from NnModelFeature import NnModel
+from NnModelFeature import NnModelFeature
 import torch
 from torchvision import transforms
 import torch.nn as nn
-from tensorboardX import SummaryWriter
 from os.path import join
 from os import listdir
 from os.path import isfile, join
-#import cv2
+import cv2
 import numpy as np
 import pickle
 from scipy.spatial.distance import cdist
 
 
-def extract_feat_bosphorus(images_path='./Resources/bosphorus_chaudhry/depth', dataset_type='_curv', ep='19', pretrained=False):
+def extract_feat_bosphorus(images_path, dataset_type, pretrained):
 
-    # Create VGG pytorch model
-    device = "cuda:0"
-    model = NnModel()
+    # Create model
+    device = "cpu"
+    model = NnModelFeature(1024,5)
 
     if pretrained:
-        # weights_path = 'pretrained/VGG_FACE.pth'
-        # state_dict = torch.load(weights_path)
-        # model.load_state_dict(state_dict)
-        model.load_state_dict(torch.load('./savedState/model' + dataset_type + '.pth'))
+        weights_path = './savedState/model' + dataset_type + '.pth'
+        state_dict = torch.load(weights_path,map_location=torch.device('cpu'))
+        model.load_state_dict(state_dict)
     else:
         weights_path = 'states/epoch_' + ep + '_' + dataset_type + '.pth.tar'
         state_dict = torch.load(weights_path)
@@ -48,14 +46,14 @@ def extract_feat_bosphorus(images_path='./Resources/bosphorus_chaudhry/depth', d
     # Loop over images
     images = [f for f in listdir(images_path) if isfile(join(images_path, f))]
 
-    features_all = np.zeros((len(images), 1000), dtype=float)
+    features_all = np.zeros((len(images), 1024), dtype=float)
 
     for i, imfile in enumerate(images):
         im = cv2.imread(join(images_path, imfile))
         im = cv2.resize(im, (64, 64))
-        im = torch.Tensor(im).view(1, 1, 64, 64)
+        im = torch.Tensor(im).view(1, 3, 64, 64)
 
-        im -= torch.Tensor(np.array(mean_pix)).view(1, 1, 1, 1)
+        im -= torch.Tensor(np.array(mean_pix)).view(1, 3, 1, 1)
         im = im.to(device)
 
         feat = model(im)
@@ -68,7 +66,7 @@ def extract_feat_bosphorus(images_path='./Resources/bosphorus_chaudhry/depth', d
 
 def matching(dataset_type='_curv', proto='NvsN'):
 
-    with open('./Resources/bosphorus_chaudhry/' + dataset_type + '.pkl', 'rb') as f:
+    with open('./savedState/featuresBosphorus/' + dataset_type + '.pkl', 'rb') as f:
         features_all, images = pickle.load(f)
 
     # Normalize features
@@ -122,30 +120,22 @@ def matching(dataset_type='_curv', proto='NvsN'):
         if probe_id[i] == gallery_id[idx]:
             rank1 += 1
     rank1 = rank1 / dists.shape[0]
-    print(str(rank1) + '-epoch-' + str(ep))
+    print(str(rank1))
 
 
-#if __name__ == "__main__":
+if __name__ == "__main__":
 
     # ATTENZIONE: le immagini 3 canali sono RGB, ma la rete è addestrata BGR. Se carico con cv2, il formato
     # dovrebbe essere già apposto poerché carica in BGR
 
-    # feat_extr = True
-    # ep = '19'
-    # dataset_type = '_curv'
-    # proto = 'NvsN'
-    # if feat_extr:
-    #     features_all, images = extract_feat_bosphorus(images_path='./Resources/bosphorus_chaudhry/' + dataset_type, dataset_type=dataset_type, ep=ep,
-    #                                                   pretrained=True)
-    #     print("done")
-    #     with open('/home/abdullah/Scrivania/Tesi/NeuralNetwork/savedState/featuresBosphorus' + dataset_type + '.pkl', 'wb') as f:
-    #         pickle.dump([features_all, images], f)
-    # else:
-    #     matching(dataset_type=dataset_type, proto=proto)
-
-#images_path = './Resources/bosphorus_chaudhry/_elev'
-images_path = './Resources//frgc_chaudry/train_curv/02463'
-images = [f for f in listdir(images_path) if isfile(join(images_path, f))]
-name = images[0]
-print(name)
-print(name[2:name.find('_')])
+    for feat_extr in [True, False]:
+        dataset_type = '_depth'
+        proto = 'NvsN'
+        if feat_extr:
+            features_all, images = extract_feat_bosphorus(images_path='./Resources/bosphorus_chaudhry/' + dataset_type, dataset_type=dataset_type,
+                                                          pretrained=True)
+            print("done")
+            with open('./savedState/featuresBosphorus/' + dataset_type + '.pkl', 'wb') as f:
+                pickle.dump([features_all, images], f)
+        else:
+            matching(dataset_type=dataset_type, proto=proto)

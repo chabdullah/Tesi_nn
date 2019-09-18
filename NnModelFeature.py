@@ -1,0 +1,25 @@
+from torch import nn, optim
+import torch.nn.functional as F
+
+
+class NnModelFeature(nn.Module):
+    in_feature = 0
+    def __init__(self, dim_descrittore, kernel_size):
+        super(NnModelFeature, self).__init__()
+
+        self.conv1 = nn.Conv2d(3, 10, kernel_size=kernel_size) # immagine 64*64
+        self.conv2 = nn.Conv2d(10, 20, kernel_size=kernel_size)
+        self.conv2_drop = nn.Dropout2d()
+        self.in_feature = int(((((((64-kernel_size)+1)/2)-kernel_size)+1)/2))
+        self.in_feature *= self.in_feature * 20
+        self.fc1 = nn.Linear(self.in_feature, dim_descrittore)
+        self.fc2 = nn.Linear(dim_descrittore, 426)
+
+    def forward(self, x):
+        x = F.relu(F.max_pool2d(self.conv1(x), 2))  # [ (S-k + 2*p)/s + 1 ] / 2
+        x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
+        x = x.view(-1, self.in_feature)  # 13*13*20 = 3380
+        return F.relu(self.fc1(x))
+
+
+
