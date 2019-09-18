@@ -15,31 +15,38 @@ from itertools import product
 
 #torch.set_printoptions(threshold=10000000)
 
-n_epochs = 10
+n_epochs = 80
 parameters = dict(
     lr = [.01]
-    , batch_size=[16, 32]
-    , shuffle=[True]
-    , datasets=['_curv','_depth','_elev']
-    , dim_descrittore=[1000, 2000]
-    , kernel_size=[5, 20]
+    , batch_size=[16]
+    , datasets=['_curv']
+    , dim_descrittore=[1024]
+    , kernel_size=[5]
 )
 param_values = [v for v in parameters.values()]
 momentum = 0.5
 log_interval = 10
-device = 'cuda:0'
+device = 'cuda:1'
 
 
-def load_data(batch_size, shuffle):
+def load_data(batch_size):
   traindata_path = './Resources/frgc_chaudry/train'+dataset_type
   valdata_path = './Resources/frgc_chaudry/val'+dataset_type
+
+  if dataset_type == '_elev':
+    mean_pix = [0.22587, 0.22587, 0.22587]
+  elif dataset_type == '_depth':
+    mean_pix = [0.2693, 0.2693, 0.2693]
+  elif dataset_type == '_curv':
+    mean_pix = [0.11014, 0.11014, 0.11014]
 
   train_dataset = torchvision.datasets.ImageFolder(
           root=traindata_path,
           transform=torchvision.transforms.Compose([
             torchvision.transforms.Resize(64),
             torchvision.transforms.RandomHorizontalFlip(),
-            torchvision.transforms.ToTensor()
+            torchvision.transforms.ToTensor(),
+            torchvision.transforms.Normalize(mean=mean_pix,std=[1,1,1])
           ])
       )
   val_dataset = torchvision.datasets.ImageFolder(
@@ -47,7 +54,8 @@ def load_data(batch_size, shuffle):
     transform=torchvision.transforms.Compose([
       torchvision.transforms.Resize(64),
       torchvision.transforms.RandomHorizontalFlip(),
-      torchvision.transforms.ToTensor()
+      torchvision.transforms.ToTensor(),
+      torchvision.transforms.Normalize(mean=mean_pix,std=[1,1,1])
     ])
   )
   #print("Train: Detected Classes are: ", train_dataset.class_to_idx)
@@ -55,13 +63,13 @@ def load_data(batch_size, shuffle):
     train_dataset,
     batch_size=batch_size,
     num_workers=0,
-    shuffle=shuffle
+    shuffle=True
   )
   val_loader = torch.utils.data.DataLoader(
     val_dataset,
     batch_size=batch_size,
     num_workers=0,
-    shuffle=shuffle
+    shuffle=True
   )
   return train_dataset, val_dataset, train_loader, val_loader
 
@@ -86,8 +94,8 @@ def train(epoch):
     if batch_id % log_interval == 0:
       print('Train Epoch: {} [{}/{} ({:.0f}%)]\tLoss: {:.6f}'.format(epoch, batch_id * len(data), len(train_loader.dataset),
         100. * batch_id / len(train_loader), loss.item()))
-      #torch.save(network.state_dict(), './savedState/model'+dataset_type+'.pth')
-      #torch.save(optimizer.state_dict(), './savedState/optimizer'+dataset_type+'.pth')
+      torch.save(network.state_dict(), './savedState/model'+dataset_type+'.pth')
+      torch.save(optimizer.state_dict(), './savedState/optimizer'+dataset_type+'.pth')
   tb.add_scalar(dataset_type+' Train Loss', 100.0 * total_loss/len(train_loader.dataset), epoch)
   tb.add_scalar(dataset_type + ' Train Accuracy', 100 * correct / len(train_loader.dataset), epoch)
   # tb.add_histogram('conv1.bias', network.conv1.bias, epoch)
@@ -124,26 +132,26 @@ def test(epoch):
 
 
 
-for lr, batch_size, shuffle, dataset_type, dim_descrittore, kernel_size in product(*param_values):
+for lr, batch_size, dataset_type, dim_descrittore, kernel_size in product(*param_values):
   torch.cuda.empty_cache()
 
-  train_dataset, val_dataset, train_loader, val_loader = load_data(batch_size,shuffle)
+  train_dataset, val_dataset, train_loader, val_loader = load_data(batch_size)
   network = NnModel(dim_descrittore, kernel_size)
   #network.load_state_dict(torch.load('./savedState/model' + dataset_type + '.pth'))
   network = network.to(device)
   optimizer = optim.SGD(network.parameters(), lr=lr, momentum=momentum)
   #optimizer.load_state_dict(torch.load('./savedState/optimizer' + dataset_type + '.pth'))
-  scheduler = StepLR(optimizer, step_size=25, gamma=0.1)
+  scheduler = StepLR(optimizer, step_size=30, gamma=0.1)
   criterion = nn.CrossEntropyLoss()
 
   images, labels = next(iter(train_loader))
   grid = torchvision.utils.make_grid(images)
 
-  tb = SummaryWriter(comment=f' batch_size={batch_size} shuffle={shuffle} dataset={dataset_type} dim_descrittore={dim_descrittore} kernel_size= {kernel_size}')
+  tb = SummaryWriter(comment=f' batch_size={batch_size} dataset={dataset_type} dim_descrittore={dim_descrittore} kernel_size= {kernel_size}')
   tb.add_image('Faces', grid)
 
 
-  print('\033[92m' + 'batch_size=%s shuffle=%s dataset=%s \ndim_descrittore=%s kernel_size=%s \033[0m'% (batch_size, shuffle, dataset_type, dim_descrittore, kernel_size))
+  print('\033[92m' + 'batch_size=%s dataset=%s \ndim_descrittore=%s kernel_size=%s \033[0m'% (batch_size, dataset_type, dim_descrittore, kernel_size))
   for epoch in range(n_epochs):
     scheduler.step()
     train(epoch)
