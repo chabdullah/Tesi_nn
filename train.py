@@ -19,7 +19,7 @@ n_epochs = 80
 parameters = dict(
     lr = [.01]
     , batch_size=[16]
-    , datasets=['_depth']
+    , datasets=['_elev', '_depth', '_curv']
     , dim_descrittore=[1024]
     , kernel_size=[5]
 )
@@ -81,6 +81,7 @@ def train(epoch):
   total_loss = 0
   correct = 0
   for batch_id, (data, target) in enumerate(train_loader):
+    data = data.narrow(1,0,1)
     data = data.to(device)
     target = target.to(device)
     optimizer.zero_grad()
@@ -98,8 +99,7 @@ def train(epoch):
       torch.save(optimizer.state_dict(), './savedState/optimizer'+dataset_type+'.pth')
   tb.add_scalar(dataset_type+' Train Loss', 100.0 * total_loss/len(train_loader.dataset), epoch)
   tb.add_scalar(dataset_type + ' Train Accuracy', 100 * correct / len(train_loader.dataset), epoch)
-  # tb.add_histogram('conv1.bias', network.conv1.bias, epoch)
-  # tb.add_histogram('conv1.weight', network.conv1.weight, epoch)
+
 
   for name, param in network.named_parameters():
     tb.add_histogram(name, param, epoch)
@@ -113,6 +113,7 @@ def test(epoch):
   correct = 0
   with torch.no_grad():
     for batch_id, (data, target) in enumerate(val_loader):
+      data = data.narrow(1,0,1)
       data = data.to(device)
       target = target.to(device)
       output = network(data)
