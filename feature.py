@@ -21,7 +21,7 @@ import matplotlib.pylab as plt
 
 
 parameters = dict(
-      datasets=['_curv', '_depth', '_elev']
+      datasets=['_elev','_curv','_depth', ]
     , pca = [True, False]
     , proto=['NvsN', 'NvsE', 'NvsA']
 )
@@ -102,11 +102,11 @@ def extract_feat_bosphorus(images_path, dataset_type, pretrained):
     features_all = np.zeros((len(images), 1024), dtype=float)
 
     for i, imfile in enumerate(images):
-        im = cv2.imread(join(images_path, imfile))
+        im = cv2.imread(join(images_path, imfile),0)
         im = cv2.resize(im, (64, 64))
-        im = torch.Tensor(im).view(1, 3, 64, 64)
+        im = torch.Tensor(im).view(1, 1, 64, 64)
 
-        im -= torch.Tensor(np.array(mean_pix)).view(1, 3, 1, 1)
+        im -= torch.Tensor(np.array(mean_pix[0])).view(1, 1, 1, 1)
         im = im.to(device)
 
         feat = model(im)

@@ -19,7 +19,7 @@ n_epochs = 80
 parameters = dict(
     lr = [.01]
     , batch_size=[16]
-    , datasets=['_elev', '_depth', '_curv']
+    , datasets=['_elev']
     , dim_descrittore=[1024]
     , kernel_size=[5]
 )

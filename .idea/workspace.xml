@@ -3,12 +3,15 @@
   <component name="ChangeListManager">
     <list default="true" id="a5a48614-aab6-4d4f-9e87-d2d1258a5789" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NnModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/NnModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NnModelFeature.py" beforeDir="false" afterPath="$PROJECT_DIR$/NnModelFeature.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/feature.py" beforeDir="false" afterPath="$PROJECT_DIR$/feature.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/Sep18_15-58-10_lechuck batch_size=16 dataset=_curv dim_descrittore=1024 kernel_size= 5/events.out.tfevents.1568815090.lechuck" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/savedState/featuresBosphorus/_curv.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/featuresBosphorus/_curv.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/savedState/featuresBosphorus/_depth.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/featuresBosphorus/_depth.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/savedState/featuresBosphorus/_elev.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/featuresBosphorus/_elev.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/savedState/model_curv.pth" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/model_curv.pth" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/savedState/model_depth.pth" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/model_depth.pth" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/savedState/model_elev.pth" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/model_elev.pth" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/savedState/optimizer_curv.pth" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/optimizer_curv.pth" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/savedState/optimizer_depth.pth" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/optimizer_depth.pth" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/savedState/optimizer_elev.pth" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/optimizer_elev.pth" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
     </list>
@@ -47,7 +50,7 @@
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/FeaturesResults" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
@@ -213,7 +216,12 @@
       <workItem from="1568880659649" duration="1171000" />
       <workItem from="1568906304144" duration="3359000" />
       <workItem from="1568964940498" duration="5245000" />
-      <workItem from="1568976541263" duration="17057000" />
+      <workItem from="1568976541263" duration="18289000" />
+      <workItem from="1569046266162" duration="1510000" />
+      <workItem from="1569051412613" duration="11000" />
+      <workItem from="1569051548851" duration="15000" />
+      <workItem from="1569051744701" duration="1132000" />
+      <workItem from="1569054630211" duration="1723000" />
     </task>
     <task id="LOCAL-00001" summary="Aggiunto il file per estrarre le feature">
       <created>1568814459141</created>
@@ -250,6 +258,6 @@
     <SUITE FILE_PATH="coverage/MNIST$train.coverage" NAME="train Coverage Results" MODIFIED="1567603242421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MNIST$train__1_.coverage" NAME="train (1) Coverage Results" MODIFIED="1567604401961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NeuralNetwork$train.coverage" NAME="train Coverage Results" MODIFIED="1568966191728" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/NeuralNetwork$feature.coverage" NAME="feature Coverage Results" MODIFIED="1568993238657" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NeuralNetwork$feature.coverage" NAME="feature Coverage Results" MODIFIED="1569062511242" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>
