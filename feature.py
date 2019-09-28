@@ -21,8 +21,8 @@ import matplotlib.pylab as plt
 
 
 parameters = dict(
-      datasets=['_elev','_curv','_depth', ]
-    , pca = [True, False]
+      datasets=['_elev']
+    , pca = [False]
     , proto=['NvsN', 'NvsE', 'NvsA']
 )
 param_values = [v for v in parameters.values()]
@@ -39,7 +39,7 @@ def plotResults():
     dataset = ['_curv', '_depth', '_elev']
 
     fig, ax = plt.subplots(2, 1, constrained_layout=False)
-    for i,pca in enumerate(['PCA_on','PCA_off']):
+    for i,pca in enumerate(['PCA_off']):
         NvsN_rank = []
         NvsE_rank = []
         NvsA_rank = []
@@ -59,7 +59,7 @@ def plotResults():
         ax[i].set_xticks(ind + width)
         ax[i].set_xticklabels(list(dataset))
         ax[i].legend((rects1[0], rects2[0], rects3[0]), ('NvsN', 'NvsE', 'NvsA'))
-        ax[i].set_title(pca)
+        #ax[i].set_title(pca)
         ax[i].set_ylabel('Rank value')
 
         autolabel(ax[i],rects1)
@@ -183,7 +183,6 @@ def matching(dataset_type='_curv', proto='NvsN', pca_on=False):
     gallery_id = np.array(gallery_id)
     probe_id = np.array(probe_id)
 
-
     dists = cdist(probe_feat, gallery_feat, 'cosine')
     dists = -dists + 1
     rank1 = 0
@@ -206,7 +205,7 @@ def matching(dataset_type='_curv', proto='NvsN', pca_on=False):
 
 results = {'_depth': {'PCA_on':{'NvsN':0,'NvsE':0,'NvsA':0}, 'PCA_off':{'NvsN':0,'NvsE':0,'NvsA':0}}, '_curv': {'PCA_on':{'NvsN':0,'NvsE':0,'NvsA':0}, 'PCA_off':{'NvsN':0,'NvsE':0,'NvsA':0}}, '_elev': {'PCA_on':{'NvsN':0,'NvsE':0,'NvsA':0}, 'PCA_off':{'NvsN':0,'NvsE':0,'NvsA':0}}}
 for dataset_type, pca_on, proto in product(*param_values):
-    for feat_extr in [ False]:
+    for feat_extr in [True, False]:
         if feat_extr:
             features_all, images = extract_feat_bosphorus(images_path='./Resources/bosphorus_chaudhry/' + dataset_type, dataset_type=dataset_type,
                                                           pretrained=True)

@@ -7,17 +7,19 @@ class NnModelFeature(nn.Module):
     def __init__(self, dim_descrittore, kernel_size):
         super(NnModelFeature, self).__init__()
 
-        self.conv1 = nn.Conv2d(1, 32, kernel_size=kernel_size) # immagine 64*64
+        self.conv1 = nn.Conv2d(1, 32, kernel_size=kernel_size)
         self.conv2 = nn.Conv2d(32, 64, kernel_size=kernel_size)
-        self.conv2_drop = nn.Dropout2d()
-        self.in_feature = int(((((((64-kernel_size)+1)/2)-kernel_size)+1)/2))
-        self.in_feature *= self.in_feature * 64
+        self.conv3 = nn.Conv2d(64, 128, kernel_size=kernel_size)
+        self.conv3_drop = nn.Dropout2d()
+        self.in_feature = int((((((((((64 - kernel_size) + 1) / 2) - kernel_size) + 1) / 2) - kernel_size) + 1) / 2))
+        self.in_feature *= self.in_feature * 128
         self.fc1 = nn.Linear(self.in_feature, dim_descrittore)
         self.fc2 = nn.Linear(dim_descrittore, 426)
 
     def forward(self, x):
         x = F.relu(F.max_pool2d(self.conv1(x), 2))  # [ (S-k + 2*p)/s + 1 ] / 2
-        x = F.relu(F.max_pool2d(self.conv2_drop(self.conv2(x)), 2))
+        x = F.relu(F.max_pool2d(self.conv2(x), 2))
+        x = F.relu(F.max_pool2d(self.conv3_drop(self.conv3(x)), 2))
         x = x.view(-1, self.in_feature)  # 13*13*20 = 3380
         return F.relu(self.fc1(x))
 

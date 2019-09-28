@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import torch
 import torchvision
@@ -10,6 +12,8 @@ from torchvision import datasets, transforms
 from torch import nn, optim
 import torch.nn.functional as F
 from tensorboardX import SummaryWriter
+from torchvision.utils import save_image
+
 from NnModel import NnModel
 from itertools import product
 
@@ -43,7 +47,7 @@ def load_data(batch_size):
   train_dataset = torchvision.datasets.ImageFolder(
           root=traindata_path,
           transform=torchvision.transforms.Compose([
-            torchvision.transforms.Resize(64),
+            torchvision.transforms.Resize(128),
             torchvision.transforms.RandomHorizontalFlip(),
             torchvision.transforms.ToTensor(),
             torchvision.transforms.Normalize(mean=mean_pix,std=[1,1,1])
@@ -52,7 +56,7 @@ def load_data(batch_size):
   val_dataset = torchvision.datasets.ImageFolder(
     root=valdata_path,
     transform=torchvision.transforms.Compose([
-      torchvision.transforms.Resize(64),
+      torchvision.transforms.Resize(128),
       torchvision.transforms.RandomHorizontalFlip(),
       torchvision.transforms.ToTensor(),
       torchvision.transforms.Normalize(mean=mean_pix,std=[1,1,1])
@@ -158,6 +162,7 @@ for lr, batch_size, dataset_type, dim_descrittore, kernel_size in product(*param
     train(epoch)
     test(epoch)
   tb.close()
+
 
 
 
