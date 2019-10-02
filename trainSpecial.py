@@ -23,7 +23,8 @@ n_epochs = 80
 parameters = dict(
     lr = [.01]
     , batch_size=[16]
-    , datasets=['elev_curv']
+    #, datasets=['_elev__curv', '_elev__depth', '_curv__depth']
+    , datasets=['_curv__depth']
     , dim_descrittore=[1024]
     , kernel_size=[5]
 )
@@ -36,15 +37,15 @@ device = 'cuda:1'
 def load_data(batch_size):
   #traindata_path = './Resources/frgc_chaudry/train'+dataset_type
   #valdata_path = './Resources/frgc_chaudry/val'+dataset_type
-  traindata_path = './Resources/bosphorus_chaudhry/'+dataset_type
-  valdata_path = './Resources/bosphorus_chaudhry/'+dataset_type
+  traindata_path = './Resources/frgc_chaudry/special/train'+dataset_type
+  valdata_path = './Resources/frgc_chaudry/special/val'+dataset_type
 
-  if dataset_type == '_elev':
-    mean_pix = [0.22587, 0.22587, 0.22587]
-  elif dataset_type == '_depth':
-    mean_pix = [0.2693, 0.2693, 0.2693]
-  elif dataset_type == '_curv':
-    mean_pix = [0.11014, 0.11014, 0.11014]
+  if dataset_type == '_elev__curv':
+    mean_pix = [0.22587, 0.11014, 0]
+  elif dataset_type == '_curv__depth':
+    mean_pix = [0.11014, 0.2693, 0]
+  elif dataset_type == '_elev__depth':
+    mean_pix = [0.22587, 0.2693, 0]
 
   train_dataset = torchvision.datasets.ImageFolder(
           root=traindata_path,

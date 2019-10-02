@@ -2,31 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a5a48614-aab6-4d4f-9e87-d2d1258a5789" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/createDataset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/deployment.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/deployment.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FeaturesResults/PrimoTest.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/FeaturesResults/SecondoTest_PiuFiltri.png" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/NnModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/NnModel.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/NnModelFeature.py" beforeDir="false" afterPath="$PROJECT_DIR$/NnModelFeature.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/feature.py" beforeDir="false" afterPath="$PROJECT_DIR$/feature.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model.pth" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model_curv.pth" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/optimizer.pth" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/optimizer_curv.pth" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/Sep21_04-40-42_lechuck batch_size=16 dataset=_elev dim_descrittore=1024 kernel_size= 5/events.out.tfevents.1569033642.lechuck" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/Sep21_06-43-00_lechuck batch_size=16 dataset=_depth dim_descrittore=1024 kernel_size= 5/events.out.tfevents.1569040980.lechuck" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/runs/Sep21_10-31-23_lechuck batch_size=16 dataset=_curv dim_descrittore=1024 kernel_size= 5/events.out.tfevents.1569054683.lechuck" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/savedState/featuresBosphorus/_curv.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/featuresBosphorus/_curv.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/savedState/featuresBosphorus/_depth.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/featuresBosphorus/_depth.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/savedState/featuresBosphorus/_elev.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/featuresBosphorus/_elev.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/savedState/model_curv.pth" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/model_curv.pth" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/savedState/model_depth.pth" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/model_depth.pth" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/savedState/model_elev.pth" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/model_elev.pth" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/savedState/optimizer_curv.pth" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/optimizer_curv.pth" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/savedState/optimizer_depth.pth" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/optimizer_depth.pth" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/savedState/optimizer_elev.pth" beforeDir="false" afterPath="$PROJECT_DIR$/savedState/optimizer_elev.pth" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/train.py" beforeDir="false" afterPath="$PROJECT_DIR$/train.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/createDataset.py" beforeDir="false" afterPath="$PROJECT_DIR$/createDataset.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/featureSpecial.py" beforeDir="false" afterPath="$PROJECT_DIR$/featureSpecial.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/Sep25_15-07-05_lechuck batch_size=16 dataset=_elev dim_descrittore=1024 kernel_size= 5/events.out.tfevents.1569416825.lechuck" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/runs/Sep25_15-17-07_lechuck batch_size=16 dataset=elev_curv dim_descrittore=1024 kernel_size= 5/events.out.tfevents.1569417427.lechuck" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/savedState/modelelev_curv.pth" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/trainSpecial.py" beforeDir="false" afterPath="$PROJECT_DIR$/trainSpecial.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +70,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.createDataset">
+  <component name="RunManager" selected="Python.featureSpecial">
     <configuration name="NnModel" type="PythonConfigurationType" factoryName="Python">
       <module name="MNIST" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -251,11 +236,11 @@
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.featureSpecial" />
         <item itemvalue="Python.createDataset" />
         <item itemvalue="Python.feature" />
         <item itemvalue="Python.trainSpecial" />
         <item itemvalue="Python.train Special" />
-        <item itemvalue="Python.featureSpecial" />
       </list>
     </recent_temporary>
   </component>
@@ -322,6 +307,12 @@
       <workItem from="1569267926964" duration="3105000" />
       <workItem from="1569415543690" duration="5788000" />
       <workItem from="1569657578739" duration="3879000" />
+      <workItem from="1569662279126" duration="724000" />
+      <workItem from="1569663330633" duration="6450000" />
+      <workItem from="1569920257834" duration="7092000" />
+      <workItem from="1569930412925" duration="6719000" />
+      <workItem from="1569998059500" duration="470000" />
+      <workItem from="1570003443072" duration="759000" />
     </task>
     <task id="LOCAL-00001" summary="Aggiunto il file per estrarre le feature">
       <created>1568814459141</created>
@@ -358,8 +349,13 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/trainSpecial.py</url>
-          <line>38</line>
+          <line>39</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/featureSpecial.py</url>
+          <line>106</line>
+          <option name="timeStamp" value="5" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -372,12 +368,12 @@
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/MNIST$NnModel.coverage" NAME="NnModel Coverage Results" MODIFIED="1567249153384" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NeuralNetwork$train_Special.coverage" NAME="train Special Coverage Results" MODIFIED="1569432127871" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/NeuralNetwork$featureSpecial.coverage" NAME="featureSpecial Coverage Results" MODIFIED="1569431542307" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NeuralNetwork$featureSpecial.coverage" NAME="featureSpecial Coverage Results" MODIFIED="1569998485131" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MNIST$train.coverage" NAME="train Coverage Results" MODIFIED="1567603242421" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/MNIST$train__1_.coverage" NAME="train (1) Coverage Results" MODIFIED="1567604401961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NeuralNetwork$trainSpecial.coverage" NAME="trainSpecial Coverage Results" MODIFIED="1569657988240" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NeuralNetwork$train.coverage" NAME="train Coverage Results" MODIFIED="1569416377092" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
-    <SUITE FILE_PATH="coverage/NeuralNetwork$createDataset.coverage" NAME="createDataset Coverage Results" MODIFIED="1569660870664" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/NeuralNetwork$createDataset.coverage" NAME="createDataset Coverage Results" MODIFIED="1569929737787" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/NeuralNetwork$feature.coverage" NAME="feature Coverage Results" MODIFIED="1569660069259" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

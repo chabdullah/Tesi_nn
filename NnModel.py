@@ -7,7 +7,7 @@ class NnModel(nn.Module):
     def __init__(self, dim_descrittore, kernel_size):
         super(NnModel, self).__init__()
 
-        self.conv1 = nn.Conv2d(1, 32, kernel_size=kernel_size)
+        self.conv1 = nn.Conv2d(2, 32, kernel_size=kernel_size)
         self.conv2 = nn.Conv2d(32, 64, kernel_size=kernel_size)
         self.conv3 = nn.Conv2d(64, 128, kernel_size=kernel_size)
         self.conv3_drop = nn.Dropout2d()

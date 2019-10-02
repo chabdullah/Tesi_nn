@@ -6,6 +6,7 @@ from torchvision.utils import save_image
 from os import listdir
 from os.path import isfile, join
 
+state = 'train'
 
 def load_data(dataset_type, batch_size):
   # traindata_path = './Resources/frgc_chaudry/train'+dataset_type
@@ -22,8 +23,7 @@ def load_data(dataset_type, batch_size):
   dataset = torchvision.datasets.ImageFolder(
           root=path,
           transform=torchvision.transforms.Compose([
-            #torchvision.transforms.Resize(128),
-            torchvision.transforms.RandomHorizontalFlip(),
+            torchvision.transforms.Resize(256),
             torchvision.transforms.ToTensor(),
             torchvision.transforms.Normalize(mean=mean_pix,std=[1,1,1])
           ])
@@ -33,7 +33,7 @@ def load_data(dataset_type, batch_size):
     dataset,
     batch_size=batch_size,
     num_workers=0,
-    shuffle=True
+    shuffle=False
   )
   return dataset_loader
 
@@ -45,7 +45,7 @@ dataset_loader1 = load_data(dataset_type1,1)
 dataset_type2 = '_curv'
 dataset_loader2 = load_data(dataset_type2,1)
 
-filesName = [f for f in listdir('./Resources/bosphorus_chaudhry/' + dataset_type1 + '/1/') if isfile(join('./Resources/bosphorus_chaudhry/' + dataset_type1 + '/1/', f))]
+filesName = [f for f in listdir('./Resources/bosphorus_chaudhry/'+ dataset_type1+'/1/') if isfile(join('./Resources/bosphorus_chaudhry/'+ dataset_type1+'/1/' , f))]
 filesName.sort()
 
 first_dataset = []
@@ -56,14 +56,20 @@ target_dataset = []
 for i,(image,target) in enumerate(dataset_loader1):
   image = image.narrow(1,0,1)
   first_dataset.append(image)
+  #target_dataset.append(target)
+  if ((i%5000)== 0):
+    print(i/len(dataset_loader1))
 
-for image, target in dataset_loader2:
-  image = image.narrow(1, 0, 1)
+for i,(image,target) in enumerate(dataset_loader2):
+  image = image.narrow(1,0,1)
   second_dataset.append(image)
+  if ((i % 5000) == 0):
+    print(i/len(dataset_loader2))
 
 for i in np.arange(len(first_dataset)):
-  final_dataset.append(torch.cat((first_dataset[i],second_dataset[i]),1))
-  if not os.path.exists('./Resources/bosphorus_chaudhry/special/'+dataset_type1+'_'+dataset_type2+'/'):
-    os.makedirs('./Resources/bosphorus_chaudhry/special/'+dataset_type1+'_'+dataset_type2+'/')
-  save_image(final_dataset[i], './Resources/bosphorus_chaudhry/special/'+dataset_type1+'_'+dataset_type2+'/'+filesName)
+  final_dataset.append(torch.cat((torch.cat((first_dataset[i],second_dataset[i]),1),torch.zeros(65536).reshape([1,1,256,256])),1))
+  path = './Resources/bosphorus_chaudhry/special/'+dataset_type1+'_'+dataset_type2+'/'
+  if not os.path.exists(path):
+    os.makedirs(path)
+  save_image(final_dataset[i], path+filesName[i])
   print(i/len(first_dataset))

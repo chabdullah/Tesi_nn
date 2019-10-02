@@ -21,7 +21,7 @@ import matplotlib.pylab as plt
 
 
 parameters = dict(
-      datasets=['elev_curv']
+      datasets=['_elev__depth']
     , pca = [False]
     , proto=['NvsN', 'NvsE', 'NvsA']
 )
@@ -36,14 +36,14 @@ def autolabel(ax,rects):
 
 
 def plotResults():
-    dataset = ['elev_curv']
+    dataset = ['_elev__depth']
 
     fig, ax = plt.subplots(2, 1, constrained_layout=False)
     for i,pca in enumerate(['PCA_off']):
         NvsN_rank = []
         NvsE_rank = []
         NvsA_rank = []
-        for ds in ['elev_curv']:
+        for ds in ['_elev__curv']:
             NvsN_rank.append(results[ds][pca]['NvsN'])
             NvsE_rank.append(results[ds][pca]['NvsE'])
             NvsA_rank.append(results[ds][pca]['NvsA'])
@@ -84,10 +84,10 @@ def extract_feat_bosphorus(images_path, dataset_type, pretrained):
         model.load_state_dict(state_dict["state_dict"])
 
     # Get mean pix values
-    if dataset_type == '_elev':
-        mean_pix = [0.22587, 0.22587, 0.22587]
-    elif dataset_type == '_depth':
-        mean_pix = [0.2693, 0.2693, 0.2693]
+    if dataset_type == '_elev__curv':
+        mean_pix = [0.22587, 0.11014]
+    elif dataset_type == '_elev__depth':
+        mean_pix = [0.22587, 0.2693]
     elif dataset_type == '_curv':
         mean_pix = [0.11014, 0.11014, 0.11014]
 
@@ -102,11 +102,12 @@ def extract_feat_bosphorus(images_path, dataset_type, pretrained):
     features_all = np.zeros((len(images), 1024), dtype=float)
 
     for i, imfile in enumerate(images):
-        im = cv2.imread(join(images_path, imfile),0)
+        im = cv2.imread(join(images_path, imfile))
         im = cv2.resize(im, (64, 64))
-        im = torch.Tensor(im).view(1, 1, 64, 64)
+        im = torch.Tensor(im).view(1, 3, 64, 64)
+        im = im.narrow(1, 0, 2)
 
-        im -= torch.Tensor(np.array(mean_pix[0])).view(1, 1, 1, 1)
+        im -= torch.Tensor(np.array(mean_pix)).view(1, 2, 1, 1)
         im = im.to(device)
 
         feat = model(im)
@@ -203,11 +204,11 @@ def matching(dataset_type='_curv', proto='NvsN', pca_on=False):
 # ATTENZIONE: le immagini 3 canali sono RGB, ma la rete è addestrata BGR. Se carico con cv2, il formato
 # dovrebbe essere già apposto poerché carica in BGR
 
-results = {'_depth': {'PCA_on':{'NvsN':0,'NvsE':0,'NvsA':0}, 'PCA_off':{'NvsN':0,'NvsE':0,'NvsA':0}}, '_curv': {'PCA_on':{'NvsN':0,'NvsE':0,'NvsA':0}, 'PCA_off':{'NvsN':0,'NvsE':0,'NvsA':0}}, '_elev': {'PCA_on':{'NvsN':0,'NvsE':0,'NvsA':0}, 'PCA_off':{'NvsN':0,'NvsE':0,'NvsA':0}}}
+results = {'_elev__curv': {'PCA_on':{'NvsN':0,'NvsE':0,'NvsA':0}, 'PCA_off':{'NvsN':0,'NvsE':0,'NvsA':0}}, '_curv': {'PCA_on':{'NvsN':0,'NvsE':0,'NvsA':0}, 'PCA_off':{'NvsN':0,'NvsE':0,'NvsA':0}}, '_elev': {'PCA_on':{'NvsN':0,'NvsE':0,'NvsA':0}, 'PCA_off':{'NvsN':0,'NvsE':0,'NvsA':0}}}
 for dataset_type, pca_on, proto in product(*param_values):
     for feat_extr in [True, False]:
         if feat_extr:
-            features_all, images = extract_feat_bosphorus(images_path='./Resources/bosphorus_chaudhry/' + dataset_type, dataset_type=dataset_type,
+            features_all, images = extract_feat_bosphorus(images_path='./Resources/bosphorus_chaudhry/special/' + dataset_type, dataset_type=dataset_type,
                                                           pretrained=True)
             print("done")
             with open('./savedState/featuresBosphorus/' + dataset_type + '.pkl', 'wb') as f:
@@ -218,5 +219,7 @@ for dataset_type, pca_on, proto in product(*param_values):
                 results[dataset_type]['PCA_on'][proto] = rank1
             else:
                 results[dataset_type]['PCA_off'][proto] = rank1
+                print(proto)
+                print(rank1)
 
 plotResults()
